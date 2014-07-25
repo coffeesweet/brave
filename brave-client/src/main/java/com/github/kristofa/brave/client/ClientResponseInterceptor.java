@@ -38,8 +38,27 @@ public class ClientResponseInterceptor {
                 // In this case response will be the error message.
                 clientTracer.submitAnnotation(FAILURE_ANNOTATION);
             }
+
+            additionalHandling(clientResponseAdapter);
         } finally {
             clientTracer.setClientReceived();
         }
+    }
+
+    /**
+     * Additional handling of Client Response. Subclasses can override this to hook in.
+     * Basic implementation does nothing.
+     *
+     * @param clientResponseAdapter the {@link ClientResponseAdapter}
+     */
+    protected void additionalHandling(ClientResponseAdapter clientResponseAdapter) {}
+
+    /**
+     * Allow subclass to use clientTracer.
+     * 
+     * @return a {@link ClientTracer}
+     */
+    protected ClientTracer getClientTracer(){
+        return clientTracer;
     }
 }
