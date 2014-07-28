@@ -11,7 +11,7 @@
 
   <groupId>com.github.kristofa</groupId>
   <artifactId>brave</artifactId>
-  <version>2.2.2-SNAPSHOT</version>
+  <version>2.2.1-ZAL-1</version>
   <packaging>pom</packaging>
 
   <name>brave</name>
@@ -246,7 +246,6 @@
     </build>
     <profiles>
 
-        <!-- suppress GPG signing with -Dgpg.skip=true -->
         <profile>
             <id>release-sign-artifacts</id>
             <activation>
@@ -273,6 +272,14 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+
+        <!-- suppress GPG signing with -Dgpg.skip=true -->
+        <profile>
+            <id>sonatype-oss-release</id>
+            <properties>
+                <gpg.skip>true</gpg.skip>
+            </properties>
         </profile>
     </profiles>
 </project>
