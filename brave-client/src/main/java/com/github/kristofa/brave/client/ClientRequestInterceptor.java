@@ -48,6 +48,9 @@ public class ClientRequestInterceptor {
         }
         clientTracer.submitBinaryAnnotation(REQUEST_ANNOTATION, clientRequestAdapter.getMethod() + " "
             + clientRequestAdapter.getUri());
+        
+        additionalHandling(clientRequestAdapter, serviceNameOverride);
+        
         clientTracer.setClientSent();
     }
 
@@ -89,5 +92,26 @@ public class ClientRequestInterceptor {
             }
         }
         return spanName;
+    }
+
+    /**
+     * Additional handling of Client Request. Subclasses can override this to hook in.
+     * Basic implementation does nothing.
+     *
+     * @param clientRequestAdapter the {@link ClientRequestAdapter}.
+     * @param serviceNameOverride  Optional name of the service the client request calls. In case it is not specified
+     *                             the name will be derived from the URI of the request. It is important the used
+     *                             service name should be same on client as on server side.
+     */
+    protected void additionalHandling(ClientRequestAdapter clientRequestAdapter, final Optional<String> serviceNameOverride) {
+    }
+
+    /**
+     * Allow subclass to use clientTracer.
+     *
+     * @return a {@link ClientTracer}
+     */
+    protected ClientTracer getClientTracer() {
+        return clientTracer;
     }
 }
