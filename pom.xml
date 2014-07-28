@@ -27,10 +27,24 @@
 	</license>
    </licenses>
    <scm>
-   		<connection>scm:git:git@github.com:kristofa/brave.git</connection>
-    	<url>git@github.com:kristofa/brave.git</url>
-    	<developerConnection>scm:git:git@github.com:kristofa/brave.git</developerConnection>
+   		<connection>scm:git:https://github.com/zalando/brave.git</connection>
+    	<url>https://github.com/zalando/brave</url>
+    	<developerConnection>scm:git:https://github.com/zalando/brave.git</developerConnection>
    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Zalando Snapshots Repositories</name>
+            <url>https://maven.zalando.net/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>releases</id>
+            <name>Zalando Releases Repositories</name>
+            <url>https://maven.zalando.de/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+    
    <developers>
    		<developer>
       		<id>kristofa</id>
@@ -231,6 +245,8 @@
         </pluginManagement> 
     </build>
     <profiles>
+
+        <!-- suppress GPG signing with -Dgpg.skip=true -->
         <profile>
             <id>release-sign-artifacts</id>
             <activation>
