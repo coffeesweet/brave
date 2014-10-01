@@ -60,7 +60,7 @@ public class ClientRequestInterceptor {
         clientTracer.setClientSent();
     }
 
-    private Optional<String> getServiceName(final ClientRequestAdapter clientRequestAdapter,
+    protected Optional<String> getServiceName(final ClientRequestAdapter clientRequestAdapter,
             final Optional<String> serviceNameOverride) {
         Optional<String> serviceName;
         if (serviceNameOverride.isPresent()) {
@@ -81,7 +81,7 @@ public class ClientRequestInterceptor {
         return serviceName;
     }
 
-    private String getSpanName(final ClientRequestAdapter clientRequestAdapter,
+    protected String getSpanName(final ClientRequestAdapter clientRequestAdapter,
             final Optional<String> serviceNameOverride) {
         String spanName;
         final Optional<String> spanNameFromRequest = clientRequestAdapter.getSpanName();
