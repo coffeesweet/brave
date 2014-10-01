@@ -19,11 +19,13 @@ import org.mockito.InOrder;
 
 import com.github.kristofa.brave.ClientRequestAdapter;
 import com.github.kristofa.brave.ClientTracer;
+import com.github.kristofa.brave.client.spanfilter.SpanNameFilter;
 
 import com.google.common.base.Optional;
 
 public class ClientRequestInterceptorHookTest {
 
+    private static final Optional<SpanNameFilter> ABSENT_SPAN_NAME_FILTER = absent();
     private static final Optional<String> ABSENT_OPTIONAL_STRING = absent();
     private static final String ADDITIONAL_BINARY_ANNOTATION_KEY = "foo";
     private static final String ADDITIONAL_BINARY_ANNOTATION_VALUE = "bar";
@@ -65,7 +67,7 @@ public class ClientRequestInterceptorHookTest {
     private static class ClientRequestInterceptorHook extends ClientRequestInterceptor {
 
         public ClientRequestInterceptorHook(final ClientTracer clientTracer) {
-            super(clientTracer);
+            super(clientTracer, ABSENT_SPAN_NAME_FILTER);
         }
 
         @Override
