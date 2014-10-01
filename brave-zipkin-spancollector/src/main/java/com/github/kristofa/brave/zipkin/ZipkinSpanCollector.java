@@ -14,7 +14,7 @@ import java.util.concurrent.Future;
 
 import javax.annotation.PreDestroy;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import org.apache.thrift.TException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,7 +81,7 @@ public class ZipkinSpanCollector implements SpanCollector {
             if (params.failOnSetup()) {
                 throw new IllegalStateException(e);
             } else {
-                LOGGER.error("Connection could not be established during setup.", e);
+                LOGGER.warn("Connection could not be established during setup.", e);
             }
         }
         spanQueue = new ArrayBlockingQueue<Span>(params.getQueueSize());
@@ -110,7 +110,7 @@ public class ZipkinSpanCollector implements SpanCollector {
 
         final boolean offer = spanQueue.offer(span);
         if (!offer) {
-            LOGGER.error("Queue rejected Span, span not submitted: {}", span);
+            LOGGER.warn("Queue rejected Span, span not submitted: {}", span);
         } else {
             final long end = System.currentTimeMillis();
             if (LOGGER.isDebugEnabled()) {
@@ -157,7 +157,7 @@ public class ZipkinSpanCollector implements SpanCollector {
                 final Integer spansProcessed = future.get();
                 LOGGER.info("SpanProcessingThread processed {} spans.", spansProcessed);
             } catch (final Exception e) {
-                LOGGER.error("Exception when getting result of SpanProcessingThread.", e);
+                LOGGER.warn("Exception when getting result of SpanProcessingThread.", e);
             }
         }
         executorService.shutdown();
