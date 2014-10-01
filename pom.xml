@@ -32,6 +32,11 @@
     	<developerConnection>scm:git:https://github.com/zalando/brave.git</developerConnection>
    </scm>
 
+    <!--
+        Execute:
+        mvn clean release:prepare -DautoVersionSubmodules=true -DreleaseVersion=X.X-ZAL-X -DdevelopmentVersion=X.X-SNAPSHOT
+        mvn release:perform
+    -->
     <distributionManagement>
         <snapshotRepository>
             <id>snapshots</id>
